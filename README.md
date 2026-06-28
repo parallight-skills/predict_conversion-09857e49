@@ -1,0 +1,2 @@
+# predict_conversion-09857e49
+试用转付费预测：6维行为特征→交互/平方特征工程+逻辑回归，本地test 0.84 / 竞技 0.85 过线。可单买 engineer_features 或整条 predict_conversion。
