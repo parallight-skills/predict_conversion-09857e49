@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "conversion-skills": {
+      "command": "python",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/mcp_server/server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "${CLAUDE_PLUGIN_ROOT}"
+      }
+    }
+  }
+}

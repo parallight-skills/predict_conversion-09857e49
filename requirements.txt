@@ -1,0 +1,5 @@
+mcp>=1.2.0
+numpy>=1.24
+pytest>=7.4
+anyio>=4.0
+uvicorn>=0.30  # 远程 SSE 传输(python -m mcp_server.server --remote)需要
