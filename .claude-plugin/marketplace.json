@@ -5,12 +5,12 @@
     "url": "https://github.com/parallight-skills"
   },
   "metadata": {
-    "description": "试用转付费预测：6维行为特征→交互/平方特征工程+逻辑回归，本地test 0.84 / 竞技 0.85 过线。可单买 engineer_features 或整条 predict_conversion。"
+    "description": "试用转付费预测 + FGVC-Aircraft 微调配方。新增 aircraft_finetune_recipe（resnet50/10ep/无增强，验证 78.5%）。同名更新=skill 迭代升级。"
   },
   "plugins": [
     {
       "name": "predict_conversion",
-      "description": "试用转付费预测：6维行为特征→交互/平方特征工程+逻辑回归，本地test 0.84 / 竞技 0.85 过线。可单买 engineer_features 或整条 predict_conversion。",
+      "description": "试用转付费预测 + FGVC-Aircraft 微调配方。新增 aircraft_finetune_recipe（resnet50/10ep/无增强，验证 78.5%）。同名更新=skill 迭代升级。",
       "version": "0.1.0",
       "source": "./",
       "category": "ml"

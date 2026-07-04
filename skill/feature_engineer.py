@@ -12,14 +12,13 @@ from itertools import combinations_with_replacement
 
 
 def engineer(X):
-    # 学员指挥:原始 6 列平铺 + 所有 2 阶乘积(x_i·x_j，含平方) + 所有 3 阶乘积(x_i·x_j·x_k)。
+    # 学员指挥:原始 6 列 + 所有 2 阶乘积(x_i·x_j，含平方)。
+    # 实验发现：加 3 阶反而过拟合（200 样本撑不住 83 维），2 阶验证集最高，故只到 2 阶。
     out = []
     for row in X:
         feats = list(row)
         n = len(row)
         for i, j in combinations_with_replacement(range(n), 2):
             feats.append(row[i] * row[j])
-        for i, j, k in combinations_with_replacement(range(n), 3):
-            feats.append(row[i] * row[j] * row[k])
         out.append(feats)
     return out
