@@ -38,22 +38,27 @@ def predict_conversion(test_x: list[list[float]]) -> list[int]:
 
 @mcp.tool()
 def aircraft_finetune_recipe() -> dict:
-    """FGVC-Aircraft(100 类飞机机型)细粒度微调的最佳配方 —— 经 9 次真实 GPU 实验验证。
+    """FGVC-Aircraft(100 类飞机机型)细粒度微调的最佳配方 —— 经 10 次真实 GPU 实验验证。
     安全边界:本工具只返回「配方/知识」,绝不触发 GPU 训练(否则调用者会烧我的 GPU 额度)。
     调用者拿这套配置,在自己的 GPU 上跑。"""
     return {
         "task": "FGVC-Aircraft, 100-class fine-grained variant classification",
-        "backbone": "resnet50",       # 决定性杠杆:r18→r50 一举 +8.2pp
-        "freeze_backbone": False,      # 全量微调远胜冻结骨架(37.7% → 78.5%)
-        "epochs": 10,
+        "backbone": "convnext_tiny",  # 决定性杠杆:r18→r50→convnext_tiny,两次换骨架 +8.2/+7.7pp
+        "freeze_backbone": False,      # 全量微调远胜冻结骨架(37.7% → 86.2%)
+        "epochs": 15,
         "lr": 3e-4,
         "batch_size": 64,
-        "augment": False,              # 实测:该任务上增强无增益(±1.5pp 噪声)
-        "verified_test_acc": 0.7852,
+        "lr_scheduler": "CosineAnnealingLR(T_max=epochs)",  # 白嫖杠杆:后期 lr 退火压收敛,train_acc 0.92→0.998
+        "augment": False,              # 实测:该任务上增强无增益(±1.5pp 噪声),convnext 也不需要
+        "tta": "可选:推理时原图+水平翻转 softmax 平均(零训练成本,通常 +0.5-1.5pp)",
+        "verified_test_acc": 0.8623,
+        "rank": "第 1 名 (2026-07-04)",
         "lessons": [
-            "骨架容量是最大杠杆;小模型(resnet18)约 70% 见顶。",
-            "数据增强必须配套更多 epoch,否则单加会掉分;此任务上净收益≈0。",
-            "9 次实验仅花 $1.96 —— 单变量 + 读日志信号做因果归因,不盲目烧钱。",
+            "骨架容量是最大杠杆:resnet18 约 70% 见顶,resnet50 到 78.5%,convnext_tiny 到 86.2%。两次大跃迁都靠换更强骨架,不是调参。",
+            "数据增强在此任务净收益≈0:小模型是容量不足(不是过拟合)→增强没用;大模型配足 epoch 也只追平、没超过无增强。",
+            "cosine LR scheduler 是大骨架上的白嫖杠杆:后期 lr 退到 ~3e-6 压住收敛,train_acc 敢压到 0.998 不反弹。零额外成本。",
+            "选对骨架方向比『无脑上最大』更重要:没上 vit_b_16(小数据集易欠拟合又贵),选 convnext_tiny——比 r50 强、又保留卷积 inductive bias、适合 3k 张中小数据集。",
+            "10 次实验仅花 $4.27 / $30 —— 单变量 + 读日志信号做因果归因,不盲目烧钱。",
         ],
     }
 

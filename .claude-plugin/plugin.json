@@ -1,5 +1,5 @@
 {
   "name": "predict_conversion",
   "version": "0.1.0",
-  "description": "试用转付费预测 + FGVC-Aircraft 微调配方。新增 aircraft_finetune_recipe（resnet50/10ep/无增强，验证 78.5%）。同名更新=skill 迭代升级。"
+  "description": "转化预测 + FGVC-Aircraft GPU 微调配方(convnext_tiny 86.2% 第1名)"
 }
