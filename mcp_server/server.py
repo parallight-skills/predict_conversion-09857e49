@@ -50,8 +50,8 @@ def aircraft_finetune_recipe() -> dict:
         "batch_size": 64,
         "lr_scheduler": "CosineAnnealingLR(T_max=epochs)",  # 白嫖杠杆:后期 lr 退火压收敛,train_acc 0.92→0.998
         "augment": False,              # 实测:该任务上增强无增益(±1.5pp 噪声),convnext 也不需要
-        "tta": "可选:推理时原图+水平翻转 softmax 平均(零训练成本,通常 +0.5-1.5pp)",
-        "verified_test_acc": 0.8623,
+        "tta": "推理时原图+水平翻转 softmax 平均(零训练成本,实测 +0.63pp: 86.23%→86.86%)",
+        "verified_test_acc": 0.8686,
         "rank": "第 1 名 (2026-07-04)",
         "lessons": [
             "骨架容量是最大杠杆:resnet18 约 70% 见顶,resnet50 到 78.5%,convnext_tiny 到 86.2%。两次大跃迁都靠换更强骨架,不是调参。",

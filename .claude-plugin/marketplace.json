@@ -5,12 +5,12 @@
     "url": "https://github.com/parallight-skills"
   },
   "metadata": {
-    "description": "转化预测 + FGVC-Aircraft GPU 微调配方(convnext_tiny 86.2% 第1名)"
+    "description": "转化预测 + FGVC-Aircraft GPU 微调配方(convnext_tiny+TTA 86.86% 第1名)"
   },
   "plugins": [
     {
       "name": "predict_conversion",
-      "description": "转化预测 + FGVC-Aircraft GPU 微调配方(convnext_tiny 86.2% 第1名)",
+      "description": "转化预测 + FGVC-Aircraft GPU 微调配方(convnext_tiny+TTA 86.86% 第1名)",
       "version": "0.1.0",
       "source": "./",
       "category": "ml"
